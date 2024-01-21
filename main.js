@@ -1,7 +1,7 @@
 const axios = require("axios");
 const FormData = require("form-data");
 const fs = require("fs");
-const apiUrl = "http://127.0.0.1:8000/uploadfile/";
+const apiUrl = "https://distinct-madlen-syntaxerreur.koyeb.app/uploadfile/";
 const pdfFilePath = "hey.pdf";
 
 const formData = new FormData();

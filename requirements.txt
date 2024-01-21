@@ -1,0 +1,4 @@
+fastapi
+pdfplumber
+google-generativeai
+fpdf
