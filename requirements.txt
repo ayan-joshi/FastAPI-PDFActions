@@ -3,4 +3,4 @@ pdfplumber
 google-generativeai
 fpdf
 uvicorn
-python-multipart==0.0.5
+python-multipart
