@@ -75,7 +75,7 @@ def generate_text_response(prompt, max_tokens_per_request=8000):
         try:
             response_part = model.generate_content(part_prompt)
             response_parts.append(response_part.text)
-        except google.generativeai.ApiRequestError as e:
+        except UnicodeEncodeError as e:
             logging.error("Error calling Gemini API: %s", e)
             raise HTTPException(status_code=500, detail="Gemini API error") from e
 
@@ -128,18 +128,22 @@ async def create_upload_file(file: UploadFile = File(...)):
 
         try:
             text_content = process_pdf_file(temp_file)
+            # print("----------------------------------------------------------------------------------- The res is "+text_content +"---------------------------------------------------------------------------------------")
         except Exception as e:
             logging.error("Error processing PDF: %s", e)
             raise HTTPException(status_code=422, detail="Invalid PDF structure") from e
 
         prompt_parts[-1] = (
         #    "Perform abstractive summarization of 1500 words in paragraph for the given document read it and understand then generate. Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms. Pay special attention to providing a clear understanding of the policy's key details. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications "
-        "Generate an abstractive summarization and simplified 2500-word paragraph summary for a medical insurance policy document. Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms. Pay special attention to providing a clear understanding of the policy's key details, including coverage, exclusions, and vital considerations for the policyholder. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications"
+        "Generate an abstractive summarization and simplified 2500-word paragraph summary for the given document. Understand the text and Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms. Pay special attention to providing a clear understanding of the policy's key details, including coverage, exclusions, and vital considerations for the policyholder. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications from the details Provied"
+        + text_content
         )
 
         try:
             gemini_response_summary = generate_summary(prompt_parts)
-        except google.generativeai.ApiRequestError as e:
+            print( prompt_parts)
+            print("----------------------------------------------------------------------------------- The res is " + gemini_response_summary + "---------------------------------------------------------------------------------------")
+        except UnicodeEncodeError as e:
             logging.error("Error calling Gemini API: %s", e)
             raise HTTPException(status_code=500, detail="Gemini API error") from e
 
@@ -156,7 +160,7 @@ async def create_upload_file(file: UploadFile = File(...)):
             gemini_response_simplified = generate_text_response(
                 simplified_prompt_parts
             )
-        except google.generativeai.ApiRequestError as e:
+        except UnicodeEncodeError as e:
             logging.error("Error calling Gemini API: %s", e)
             raise HTTPException(status_code=500, detail="Gemini API error") from e
 
