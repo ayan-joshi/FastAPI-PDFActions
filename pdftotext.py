@@ -135,8 +135,8 @@ async def create_upload_file(file: UploadFile = File(...)):
 
         prompt_parts[-1] = (
         #    "Perform abstractive summarization of 1500 words in paragraph for the given document read it and understand then generate. Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms. Pay special attention to providing a clear understanding of the policy's key details. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications "
-        "Generate an abstractive summarization and simplified 2500-word paragraph summary for the given document. Understand the text and Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms. Pay special attention to providing a clear understanding of the policy's key details, including coverage, exclusions, and vital considerations for the policyholder. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications from the details Provied"
-        + text_content
+        "Generate an abstractive summarization and simplified 2500-word paragraph summary for the given Policy below. Understand the text and Craft the summary in plain, easy-to-understand language, avoiding any legal or complex terms from the given Policy below. Pay special attention to providing a clear understanding of the policy's key details, including coverage, exclusions, and vital considerations for the policyholder. Elaborate on each aspect in a manner accessible to individuals with diverse educational backgrounds, prioritizing simplicity and clarity. Aim to create a comprehensive summary that empowers individuals with knowledge, reducing the risk of potential scams. Ensure that the generated output matches the length specified, and include all relevant contact details at the end for further inquiries or clarifications from the details Provied"
+        + "------------------------------------------------- BELOW STARTS THE POLICY ----------------------------------------------- " text_content
         )
 
         try:
@@ -153,7 +153,7 @@ async def create_upload_file(file: UploadFile = File(...)):
 
         simplified_prompt_parts[-1] = (
             "Perform abstractive summarization on the given legal document. The goal is to create a summary that is close in length to the original document. Prioritize clarity and simplicity by converting complex and legal terms into easily understandable language. Aim for an output length that is as close as possible to the input, maintaining coherence and relevance.Eliminate unnecessary complexity to make the summary accessible to individuals with diverse educational backgrounds."
-            + text_content
+            + "------------------------------------------------- BELOW STARTS THE POLICY ----------------------------------------------- " + text_content
         )
 
         try:
