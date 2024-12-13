@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-genai.configure(api_key="AIzaSyBbeOPkTwH3FuubFZxN5ZgSkpmafzuXN0k")
+genai.configure(api_key="AIzaSyDPLkWm3nP0XhWAsfLT4XNph5QAcZH6Ulg")
 
 generation_config = {
     "temperature": 0.8,
